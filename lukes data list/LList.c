@@ -4,9 +4,9 @@
 #include <string.h>
 
 
-void * __add(LList * self, void * data, int dataSize){
+static void * __add(LList * self, void * data, int dataSize){
     if(self->length >= self->bufferLength){
-        self->bufferLength *= 2;
+        self->bufferLength = self->bufferLength * 2 + 1;
         self->data = (void * * ) realloc((void*)self->data, self->bufferLength * sizeof(void *));
     }
     void * newData = malloc(dataSize);
@@ -15,11 +15,17 @@ void * __add(LList * self, void * data, int dataSize){
     return newData;
 }
 
-void * __get(LList * self, int index){
+static void * __get(LList * self, int index){
     return self->data[index];
 }
 
-void __del(LList * self){}
+static void __del(LList * self){
+    int i = 0;
+    for(; i < self->length; i++) free(self->get(self, i));
+    free(self->data);
+    self->length = 0;
+    self->bufferLength = 0;
+}
 
 LList newLList(){
     LList self;
@@ -35,4 +41,3 @@ LList newLList(){
     return self;
 }
 
-int len(LList * self){ return self->length; }

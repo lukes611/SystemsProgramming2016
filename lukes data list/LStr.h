@@ -8,9 +8,7 @@ typedef struct LStrStruct{
     
 }LStr;
 
-LStr newLStrn(int bl);
 LStr newLStr();
-LStr newLStrc(char * ptr);
 
 
 #endif

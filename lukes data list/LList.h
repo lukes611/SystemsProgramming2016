@@ -13,6 +13,6 @@ typedef struct LListStruct{
 
 
 LList newLList();
-int len(LList * self);
+
 
 #endif
