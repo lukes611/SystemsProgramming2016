@@ -8,7 +8,10 @@
 int main(){
     
     //using lists:
-    LList l = newLList();
+    LList l = newLList(); //init
+    
+    LStr record = newLStr();
+    
     int i;
     for(i = 0; i < 10; i++){
         l.add(&l, &i, sizeof(int)); //adding
@@ -17,11 +20,15 @@ int main(){
     
     for(i = 0; i < l.length; i++){ //getting
         int * ptr = l.get(&l, i);
-        printf("l[%i] = %i\n", i, *ptr);
+        char buf[300];
+        sprintf(buf, "l[%i] = %i\n", i, *ptr);
+        record.addcs(&record, buf);
     }
     
     l.del(&l); //free all the data
     
+    record.print(&record);
+    //record.del(&record);
     
     
     
