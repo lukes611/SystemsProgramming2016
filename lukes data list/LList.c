@@ -4,6 +4,7 @@
 #include <string.h>
 
 
+
 static void * __add(LList * self, void * data, int dataSize){
     if(self->length >= self->bufferLength){
         self->bufferLength = self->bufferLength * 2 + 1;
