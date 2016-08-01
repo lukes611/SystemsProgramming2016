@@ -7,7 +7,10 @@ typedef struct LListStruct{
     
     void * (*add)(struct LListStruct *, void *, int);
     void * (*get)(struct LListStruct *, int);
+    void (*set)(struct LListStruct *, int, void *, int);
     void   (*del)(struct LListStruct *);
+    void (*sort)(struct LListStruct *, int (*)(void *, void *));
+    void (*remove)(struct LListStruct *, int index);
     
 } LList;
 
