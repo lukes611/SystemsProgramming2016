@@ -74,6 +74,8 @@ static void __remove(LList * self, int index){
     self->length -= 1;
 }
 
+
+
 LList newLList(){
     LList self;
     self.bufferLength = 10;

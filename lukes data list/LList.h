@@ -1,4 +1,5 @@
 #ifndef LLIST_H
+#define LLIST_H
 
 typedef struct LListStruct{
     int length;

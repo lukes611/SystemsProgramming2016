@@ -85,11 +85,60 @@ static double __parseDouble(LStr * self){
     return ret;
 }
 
+static int __findc(LStr * self, char c){
+    int i;
+    for(i = 0; i < self->length(self); i++){
+        if(self->ptr[i] == c) return 1;
+    }
+    return 0;
+}
+
+static int __eqcs(LStr * self, char * other){
+    return strcmp(self->ptr, other) == 0;
+}
+
+static int __eq(LStr * self, LStr * other){
+    return strcmp(self->ptr, other->ptr) == 0;
+}
+
+static LList __split(LStr * self, char delim){
+    LStr tmp = newLStr();
+    LList ret = newLList();
+    int wasAdded = 0;
+    int i;
+    for(i = 0; i < self->length(self); i++){
+        char c = self->ptr[i];
+        if(c == delim){
+            LStr cp = newLStr();
+            cp.set(&cp, &tmp);
+            ret.add(&ret, &cp, sizeof(cp));
+            wasAdded = 1;
+            tmp.setcs(&tmp, "");
+        }else{
+            tmp.addc(&tmp, c);
+            wasAdded = 0;
+        }
+    }
+    if(!wasAdded){
+        LStr cp = newLStr();
+        cp.set(&cp, &tmp);
+        ret.add(&ret, &cp, sizeof(cp));
+    }
+            
+    return ret;
+            
+}
+
+static void __set(LStr * self, LStr * other){
+    self->setcs(self, other->ptr);
+}
+
 static void __init(LStr * self){
     self->del = __del;
     self->length = __getLength;
     self->setcs = __setcs;
     self->print = __print;
+    self->findc = __findc;
     self->add = __add;
     self->addcs = __addcs;
     self->addc = __addc;
@@ -99,6 +148,10 @@ static void __init(LStr * self){
     self->parseInt = __parseInt;
     self->parseDouble = __parseDouble;
     self->parseFloat = __parseFloat;
+    self->eqcs = __eqcs;
+    self->split = __split;
+    self->set = __set;
+    self->eq = __eq;
 }
 
 static LStr __newLStr(int bl){
