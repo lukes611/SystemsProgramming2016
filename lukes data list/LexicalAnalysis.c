@@ -47,7 +47,7 @@ int LA_isDoubleLex(LStr * st){
 }
 
 int LA_isKeyWord(LStr * st){
-    LStr _ = newLStr(); _.setcs(&_, "print if else func class for break continue");
+    LStr _ = newLStr(); _.setcs(&_, "print if else func class for break continue and or not");
     LList list = _.split(&_, ' ');
     int result = LA_contains(&list, st);
     int i;
