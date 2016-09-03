@@ -14,20 +14,13 @@ int canRead(int fd, int seconds, int microseconds){
 
 
 int main(){
-    
     char buffer[100] = "", i;
     printf("type something and hit enter: \n");
-    for(i = 0, buffer;i < 127 && strlen(buffer) == 0; ++i){
-        if(canRead(STDIN_FILENO, 0, 500000)){
-            fgets(buffer, 99, stdin), printf("you typed : %s\n", buffer);
-            break;
-        }else printf("\rwaiting %3d%c%c%c     \r",i,i%4==0?' ':'.',(i/2)%2==0?' ':'.',(i+1)%4==0?'.':' '), fflush(stdout);
+    for(i = 0;i < 127 && strlen(buffer) == 0; ++i){
+        if(canRead(STDIN_FILENO, 0, 500000)) fgets(buffer, 99, stdin), printf("you typed : %s\n", buffer);
+        else printf("\rwaiting %3d%c%c%c     \r",i,i%4==0?' ':'.',(i/2)%2==0?' ':'.',(i+1)%4==0?'.':' '), fflush(stdout);
     }
-    
     return 0;
 }
 
-
-//xxxcxxxcxxxc
-//cxxxcxxxcxxxc
 
