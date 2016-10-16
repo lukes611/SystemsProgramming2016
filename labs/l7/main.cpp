@@ -324,6 +324,6 @@ int ex2()
 
 int main()
 {
-	ex6();
+	ex1();
 	return 0;
 }
