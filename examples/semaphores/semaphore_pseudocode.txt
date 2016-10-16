@@ -1,0 +1,34 @@
+
+Object Semaphore{
+
+	Mutex m;
+	ConditionVariable c;
+	
+	int numberOfKeys;
+	
+	Semaphore(int initialNumKeys){
+		m = new Mutex();
+		c = new ConditionVariable();
+		numberOfKeys = initialNumKeys;
+	}
+	
+	void wait(){
+		m.lock(); //lock access to keys
+		while(numberOfKeys <= 0) //whilst there are no keys
+			c.wait(m); //wait in a queue + free mutex m
+		numberOfKeys -=1; //take a key (reduce the amount for others by 1)
+		m.unlock(); //unlock access to key
+	}
+	
+	void signal(){
+		m.lock(); //lock access to keys
+		numberOfKeys += 1; //add a key
+		c.broadcast(); //wake everyone, there is a new key!
+		m.unlock(); //allow access to keys
+	}
+	
+	void signal(int numNewKeys){
+		for(int i = 0; i < numNewKeys; i++) signal();
+	}
+
+}
